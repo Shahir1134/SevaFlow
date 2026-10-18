@@ -1,0 +1,46 @@
+﻿# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Environment - NEVER COMMIT SECRETS
+.env
+.env.local
+.env.*.local
+
+# Vite / frontend build
+frontend/dist/
+frontend/.vite/
+
+# Database
+*.sqlite
+*.db
+
+# Uploads (local dev only)
+backend/uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Coverage
+htmlcov/
+.coverage
+coverage.xml

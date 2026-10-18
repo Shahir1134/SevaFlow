@@ -1,0 +1,41 @@
+{
+  "name": "healthconnect-india-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/react-query": "^5.50.0",
+    "framer-motion": "^11.3.0",
+    "lucide-react": "^0.414.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.1",
+    "react-router-dom": "^6.25.1",
+    "tailwindcss": "^4.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^15.0.7",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/ui": "^1.6.0",
+    "jsdom": "^24.1.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
+    "vitest": "^1.6.0"
+  }
+}

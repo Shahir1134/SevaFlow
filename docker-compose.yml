@@ -1,0 +1,45 @@
+﻿version: '3.9'
+
+# HealthConnect India — Local Development Database
+# Requires: Docker Desktop (https://www.docker.com/products/docker-desktop/)
+#
+# Usage:
+#   docker compose up -d          Start PostgreSQL + pgvector
+#   docker compose down           Stop (data preserved)
+#   docker compose down -v        Stop and DELETE all data
+#   docker compose logs -f db     Stream DB logs
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: healthconnect_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: healthuser
+      POSTGRES_PASSWORD: healthpass
+      POSTGRES_DB: healthdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U healthuser -d healthdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Adminer: lightweight DB GUI at http://localhost:8080
+  adminer:
+    image: adminer:4
+    container_name: healthconnect_adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+    name: healthconnect_pgdata
