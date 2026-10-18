@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { useI18n } from '../i18n/useI18n'
@@ -69,6 +70,74 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
+      
+      {/* Personalized Dashboard Welcome */}
+      <section className="rounded-2xl border border-indigo-100 bg-white p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p className="text-sm font-medium text-indigo-600">
+              YOUR FAMILY HEALTH DASHBOARD
+            </p>
+            <h2 className="mt-1 text-xl sm:text-2xl font-bold text-slate-900">
+              Your healthcare, organized in one place.
+            </h2>
+            <p className="mt-2 text-sm text-slate-600 max-w-2xl">
+              Review your insurance, explore eligible healthcare schemes, and
+              find care options for your family.
+            </p>
+          </div>
+
+          <Link
+            to="/profile"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 transition-colors"
+          >
+            Manage Profile
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Link
+            to="/insurance"
+            className="rounded-xl bg-indigo-50 p-4 hover:bg-indigo-100 transition-colors"
+          >
+            <Shield className="h-5 w-5 text-indigo-600" />
+            <p className="mt-3 text-sm font-semibold text-slate-900">
+              Review Insurance
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              Explore your policy information.
+            </p>
+          </Link>
+
+          <Link
+            to="/find-care"
+            className="rounded-xl bg-emerald-50 p-4 hover:bg-emerald-100 transition-colors"
+          >
+            <Search className="h-5 w-5 text-emerald-600" />
+            <p className="mt-3 text-sm font-semibold text-slate-900">
+              Find Healthcare
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              Explore hospitals and care options.
+            </p>
+          </Link>
+
+          <Link
+            to="/claims"
+            className="rounded-xl bg-orange-50 p-4 hover:bg-orange-100 transition-colors"
+          >
+            <Receipt className="h-5 w-5 text-orange-600" />
+            <p className="mt-3 text-sm font-semibold text-slate-900">
+              Claims & Tax
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              Review claims and Section 80D tools.
+            </p>
+          </Link>
+        </div>
+      </section>
+
       {/* Hero Banner */}
       <div className="rounded-3xl bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 sm:p-10 shadow-lg relative overflow-hidden">
         <div className="relative z-10 max-w-2xl">
