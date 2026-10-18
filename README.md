@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🩺 HACKCONNCET-INDIA
+# 🩺 HEALTHCONNCET-INDIA
 ### *Next-Gen AI Healthcare & Ayushman Bharat Insurance Navigation for India*
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
