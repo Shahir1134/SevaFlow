@@ -89,6 +89,11 @@ export const SearchableStateDistrict: React.FC<SearchableStateDistrictProps> = (
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                      }
+                    }}
                     placeholder={t('search') + ' State / UT...'}
                     autoFocus
                     className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -153,6 +158,11 @@ export const SearchableStateDistrict: React.FC<SearchableStateDistrictProps> = (
             value={districtValue}
             disabled={disabled}
             onChange={(e) => onDistrictChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+              }
+            }}
             placeholder={t('enterDistrict')}
             className={`w-full px-4 py-3 rounded-xl border bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm transition-all border-slate-300 focus:border-indigo-500 ${
               disabled ? 'opacity-50 cursor-not-allowed bg-slate-50' : ''

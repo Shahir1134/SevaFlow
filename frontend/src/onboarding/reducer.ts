@@ -16,6 +16,7 @@ export function onboardingReducer(
     case 'ANSWER': {
       const updatedAnswers = {
         ...state.answers,
+        ...(action.extraAnswers ?? {}),
         [action.questionId]: action.value,
       }
 
@@ -36,6 +37,16 @@ export function onboardingReducer(
         currentQuestion: nextQ,
         history: [...state.history, action.questionId],
         isComplete: false,
+      }
+    }
+
+    case 'SET_ANSWER': {
+      return {
+        ...state,
+        answers: {
+          ...state.answers,
+          [action.questionId]: action.value,
+        },
       }
     }
 

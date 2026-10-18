@@ -45,6 +45,12 @@ export const QuestionCard: React.FC = () => {
     return ''
   })
 
+  // Local draft state for district when answering state_district
+  const [localDistrict, setLocalDistrict] = useState<string>(() => {
+    const existing = state.answers['LOCATION_DISTRICT']
+    return typeof existing === 'string' ? existing : ''
+  })
+
   // Direction tracker for slide animations: 1 = forward, -1 = back
   const [direction, setDirection] = useState<number>(1)
   const [prevHistoryLength, setPrevHistoryLength] = useState<number>(state.history.length)
@@ -66,6 +72,9 @@ export const QuestionCard: React.FC = () => {
     } else {
       setLocalValue(currentQuestionDef.inputType === 'multi_select' ? [] : '')
     }
+
+    const existingDist = state.answers['LOCATION_DISTRICT']
+    setLocalDistrict(typeof existingDist === 'string' ? existingDist : '')
   }, [currentQuestionDef.id, state.answers, state.history.length, prevHistoryLength, currentQuestionDef.inputType])
 
   const isAnswerValid = (): boolean => {
@@ -82,7 +91,13 @@ export const QuestionCard: React.FC = () => {
   const handleNext = () => {
     if (!isAnswerValid() || isSubmitting) return
     setIsSubmitting(true)
-    answerQuestion(currentQuestionDef.id, localValue)
+    if (currentQuestionDef.inputType === 'state_district') {
+      answerQuestion(currentQuestionDef.id, localValue, {
+        LOCATION_DISTRICT: localDistrict.trim(),
+      })
+    } else {
+      answerQuestion(currentQuestionDef.id, localValue)
+    }
     setTimeout(() => setIsSubmitting(false), 250)
   }
 
@@ -305,11 +320,9 @@ export const QuestionCard: React.FC = () => {
                   <SearchableStateDistrict
                     id={currentQuestionDef.id}
                     stateValue={typeof localValue === 'string' ? localValue : ''}
-                    districtValue={typeof state.answers['LOCATION_DISTRICT'] === 'string' ? (state.answers['LOCATION_DISTRICT'] as string) : ''}
+                    districtValue={localDistrict}
                     onStateChange={(st) => setLocalValue(st)}
-                    onDistrictChange={(dist) => {
-                      answerQuestion('LOCATION_DISTRICT', dist)
-                    }}
+                    onDistrictChange={(dist) => setLocalDistrict(dist)}
                   />
                 )}
               </div>

@@ -210,4 +210,48 @@ describe('onboardingReducer', () => {
 
     expect(completed.isComplete).toBe(true)
   })
+
+  it('stores extraAnswers atomically on ANSWER', () => {
+    const state: OnboardingState = {
+      currentQuestion: 'LOCATION_STATE',
+      answers: {},
+      history: ['GENDER'],
+      isComplete: false,
+    }
+
+    const next = onboardingReducer(state, {
+      type: 'ANSWER',
+      questionId: 'LOCATION_STATE',
+      value: 'Delhi',
+      extraAnswers: {
+        LOCATION_DISTRICT: 'South West Delhi',
+      },
+    })
+
+    expect(next.currentQuestion).toBe('HOUSEHOLD_SIZE')
+    expect(next.answers['LOCATION_STATE']).toBe('Delhi')
+    expect(next.answers['LOCATION_DISTRICT']).toBe('South West Delhi')
+  })
+
+  it('updates an answer with SET_ANSWER without navigating or pushing history', () => {
+    const state: OnboardingState = {
+      currentQuestion: 'LOCATION_STATE',
+      answers: {
+        LOCATION_STATE: 'Maharashtra',
+      },
+      history: ['GENDER'],
+      isComplete: false,
+    }
+
+    const updated = onboardingReducer(state, {
+      type: 'SET_ANSWER',
+      questionId: 'LOCATION_DISTRICT',
+      value: 'Pune',
+    })
+
+    expect(updated.currentQuestion).toBe('LOCATION_STATE')
+    expect(updated.history).toEqual(['GENDER'])
+    expect(updated.answers['LOCATION_DISTRICT']).toBe('Pune')
+    expect(updated.answers['LOCATION_STATE']).toBe('Maharashtra')
+  })
 })

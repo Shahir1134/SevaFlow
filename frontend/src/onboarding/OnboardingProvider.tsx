@@ -16,7 +16,12 @@ export interface OnboardingContextValue {
   state: OnboardingState
   dispatch: React.Dispatch<OnboardingAction>
   currentQuestionDef: Question
-  answerQuestion: (questionId: QuestionId, value: string | string[]) => void
+  answerQuestion: (
+    questionId: QuestionId,
+    value: string | string[],
+    extraAnswers?: OnboardingAnswers | undefined
+  ) => void
+  setAnswer: (questionId: QuestionId, value: string | string[]) => void
   goBack: () => void
   skipQuestion: () => void
   clearAnswers: () => void
@@ -82,8 +87,20 @@ export const OnboardingProvider: React.FC<{ children: ReactNode }> = ({ children
     }
   }, [state.answers, setLanguage])
 
-  const answerQuestion = (questionId: QuestionId, value: string | string[]) => {
-    dispatch({ type: 'ANSWER', questionId, value })
+  const answerQuestion = (
+    questionId: QuestionId,
+    value: string | string[],
+    extraAnswers?: OnboardingAnswers | undefined
+  ) => {
+    if (extraAnswers !== undefined) {
+      dispatch({ type: 'ANSWER', questionId, value, extraAnswers })
+    } else {
+      dispatch({ type: 'ANSWER', questionId, value })
+    }
+  }
+
+  const setAnswer = (questionId: QuestionId, value: string | string[]) => {
+    dispatch({ type: 'SET_ANSWER', questionId, value })
   }
 
   const goBack = () => {
@@ -127,6 +144,7 @@ export const OnboardingProvider: React.FC<{ children: ReactNode }> = ({ children
         dispatch,
         currentQuestionDef,
         answerQuestion,
+        setAnswer,
         goBack,
         skipQuestion,
         clearAnswers,

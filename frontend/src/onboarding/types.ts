@@ -68,7 +68,8 @@ export interface OnboardingAnswers {
 }
 
 export type OnboardingAction =
-  | { type: 'ANSWER'; questionId: QuestionId; value: string | string[] }
+  | { type: 'ANSWER'; questionId: QuestionId; value: string | string[]; extraAnswers?: OnboardingAnswers | undefined }
+  | { type: 'SET_ANSWER'; questionId: QuestionId; value: string | string[] }
   | { type: 'NAVIGATE_BACK' }
   | { type: 'SKIP_QUESTION' }
   | { type: 'CLEAR_ALL' }
